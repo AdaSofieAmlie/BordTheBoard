@@ -14,6 +14,7 @@ int naaVerdi;
 byte potPros;
 byte gammelPros;
 
+//Setter opp alle brukere: listene er RFID til hver brikke og kort
 // Bruker1
 uint8_t brikkeRoed[10] = {164, 58, 46, 49, 0, 0, 0, 0, 0, 0};
 const int bruker1 = 1;
@@ -29,9 +30,6 @@ const int bruker3 = 3;
 // Bruker4
 uint8_t brikkeGroenn[10] = {228, 193, 180, 87, 0, 0, 0, 0, 0, 0};
 const int bruker4 = 4;
-
-//Resettknapp? Den blå som fulgte med readern                   ///////TA VEKK?????????
-uint8_t blaaReset[10] = {1, 35, 69, 103, 0, 0, 0, 0, 0, 0};
 
 //AktiviteterUID
 uint8_t lageMiddag[10] = {103, 116, 35, 217, 0, 0, 0, 0, 0, 0};
@@ -58,7 +56,7 @@ Led ledShopping(12);
 Led ledTur(13);
 
 
-//PersonLys per dag
+//PersonLys per dag (Sender inn pins til objekter av Led)
 
 //man1
 Led man1B1(53);
@@ -140,6 +138,8 @@ Led alleDagerLys[8][4] = {{man1B1, man1B2, man1B3, man1B4}, {tir1B1, tir1B2, tir
 Led alleAktLys[10] = {ledMiddag, ledPiknikk, ledTrene, ledTv, ledKaffe, ledVin, ledSpa, ledRydde, ledShopping, ledTur};
 //bool aktLysPaa[10] = {false, false, false, false, false, false, false, false, false, false};
 
+//Liste over alle listene over oppmøte
 bool oppmoteListe[8][4] =  {{moteM1}, {moteT1}, {moteO1}, {moteTO1}, {moteF1}, {moteL1}, {moteS1}, {moteM2}}; 
 
+//Liste oer alle aktivitetstilstandene i de forskjellige dagene
 bool alleAktTilstander[8][10] = {{lysM1}, {lysT1}, {lysO1}, {lysTO1}, {lysF1}, {lysL1}, {lysS1}, {lysM2}};

@@ -2,6 +2,7 @@
 #define MY_LED_H
 
 #include <Arduino.h>
+// hører til klassen Led
 
 class Led {
   
@@ -11,6 +12,7 @@ class Led {
   public:
     Led(byte pin);
     Led();
+    //Metoder:
     void init();
     void on();
     void off();

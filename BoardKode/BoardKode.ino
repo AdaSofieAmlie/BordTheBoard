@@ -14,7 +14,7 @@ void setup() {
   PN532_SPI_Init(&pn532);
   settAlleLister();   //Resetter alle lister, slik at det står false på alt
   Serial.println("Hello!");
-  if (PN532_GetFirmwareVersion(&pn532, buff) == PN532_STATUS_OK) {
+  if (PN532_GetFirmwareVersion(&pn532, buff) == PN532_STATUS_OK) {    //Når NFC scanneren er på
     Serial.print("Found PN532 with firmware version: ");
     //Serial.print(buff[1], DEC);
     Serial.print(".");
@@ -24,6 +24,7 @@ void setup() {
   PN532_SamConfiguration(&pn532);
 
   //Åpner boardet med morsom lys sekvens
+  //Først skru av alle lys
   for (int g=0; g<8; g++){
     for (int h=0; h<4; h++){
       alleDagerLys[g][h].off();
@@ -32,7 +33,7 @@ void setup() {
   for (int y=0; y<10; y++){
     alleAktLys[y].off();
   }
-  
+  //Skru på ett og ett, etter 80 og 60 millisekunder
   for (int y=0; y<10; y++){
     alleAktLys[y].on();
     delay(80);
@@ -50,15 +51,15 @@ void setup() {
 
 void loop() {
   // Setter NFC scanner til å lete etter en brikke
-  //Serial.println("loop");
+  //NFC scanner lyttet etter brikke
   uid_len = PN532_ReadPassiveTarget(&pn532, uid, PN532_MIFARE_ISO14443A, 100);
   
   if (uid_len == PN532_STATUS_ERROR){     //Hvis ingenting blir lest
     //Serial.println("nada lest");
     //Finner verdiene fra potentometeret:
-    int verdi = map(analogRead(potPin), 0, 1023, 6, 0);    //potentometer har når kunn 7 verdier, 0-6      //Neste prototype: 0-13 - 2 uker
+    int verdi = map(analogRead(potPin), 0, 1023, 6, 0);    //potentometer har når kunn 7 verdier, 6-0      //Neste prototype: 0-13 - 2 uker
     aktivDag = verdi;   //Potetntometere bestemmer hvilken dag som er aktiv
-    //Serial.println("HER");
+    //Har en teller for å kunne skru av lys etter lite aktivitet ved boardet);
     if (teller < 50){   //Vi har en teller som gjør at aktiv dag vil slutte å lyse etter hvert om ingenting blir gjort
       visAktivDag(aktivDag);    //Lyser for aktiv dag
     } 
